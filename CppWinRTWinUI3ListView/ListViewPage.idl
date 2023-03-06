@@ -1,0 +1,12 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace CppWinRTWinUI3ListView
+{
+    [default_interface]
+    runtimeclass ListViewPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ListViewPage();
+        Int32 MyProperty;
+    }
+}

@@ -1,0 +1,13 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace CppWinRTWinUI3ListView
+{
+    [default_interface]
+    runtimeclass MainWindow : Microsoft.UI.Xaml.Window
+    {
+        MainWindow();
+        Microsoft.UI.Windowing.AppWindow MyAppWindow{ get; };
+
+    }
+}
