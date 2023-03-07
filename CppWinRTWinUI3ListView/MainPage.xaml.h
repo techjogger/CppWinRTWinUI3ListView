@@ -4,7 +4,7 @@
 #pragma once
 
 #include "MainPage.g.h"
-
+#include "ContactViewModel.h"
 namespace winrt::CppWinRTWinUI3ListView::implementation
 {
     struct MainPage : MainPageT<MainPage>
@@ -20,7 +20,15 @@ namespace winrt::CppWinRTWinUI3ListView::implementation
         void OnNavigatedTo(winrt::Microsoft::UI::Xaml::Navigation::NavigationEventArgs const& e);
 
    
+        // Retreives collection of Photo objects for thumbnail view.
+        CppWinRTWinUI3ListView::ContactViewModel DefaultViewModel()
+        {
+            return m_DefaultViewModel;
+        };
+        
+    private:
 
+        CppWinRTWinUI3ListView::ContactViewModel m_DefaultViewModel{ nullptr };
 
     };
 }

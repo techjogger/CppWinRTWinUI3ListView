@@ -107,8 +107,12 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListViewPage.xaml.h">
-      <DependentUpon>ListViewPage.xaml</DependentUpon>
+    <ClInclude Include="ContactModel.h">
+      <DependentUpon>ContactModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ContactViewModel.h">
+      <DependentUpon>ContactViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="MainPage.xaml.h">
@@ -125,17 +129,18 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
-    <Page Include="ListViewPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ListViewPage.xaml.cpp">
-      <DependentUpon>ListViewPage.xaml</DependentUpon>
+    <ClCompile Include="ContactModel.cpp">
+      <DependentUpon>ContactModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ContactViewModel.cpp">
+      <DependentUpon>ContactViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MainPage.xaml.cpp">
@@ -158,9 +163,11 @@
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
     </Midl>
-    <Midl Include="ListViewPage.idl">
-      <DependentUpon>ListViewPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Midl Include="ContactModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ContactViewModel.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MainPage.idl">
       <DependentUpon>MainPage.xaml</DependentUpon>

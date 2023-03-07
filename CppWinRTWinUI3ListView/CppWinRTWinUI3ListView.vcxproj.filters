@@ -6,11 +6,12 @@
   <ItemGroup>
     <Page Include="MainWindow.xaml" />
     <Page Include="MainPage.xaml" />
-    <Page Include="ListViewPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
     <Midl Include="MainWindow.idl" />
+    <Midl Include="ContactModel.idl" />
+    <Midl Include="ContactViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -58,5 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

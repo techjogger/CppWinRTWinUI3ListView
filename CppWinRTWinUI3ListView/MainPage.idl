@@ -3,10 +3,36 @@
 
 namespace CppWinRTWinUI3ListView
 {
+
+    [bindable]
+    [default_interface]
+    runtimeclass ContactModel
+    {
+        ContactModel();
+        ContactModel(String firstName, String lastName);
+
+        String FirstName;
+        String LastName;
+
+    }
+
+
+        [bindable]
+    [default_interface]
+    runtimeclass ContactViewModel
+    {
+        ContactViewModel();
+
+
+        Windows.Foundation.Collections.IObservableVector<CppWinRTWinUI3ListView.ContactModel> ContactsList{ get; };
+
+    }
+
     [default_interface]
     runtimeclass MainPage : Microsoft.UI.Xaml.Controls.Page
     {
         MainPage();
-       
+        CppWinRTWinUI3ListView.ContactViewModel DefaultViewModel();
+
     }
 }

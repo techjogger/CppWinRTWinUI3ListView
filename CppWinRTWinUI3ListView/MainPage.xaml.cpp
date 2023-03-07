@@ -26,10 +26,8 @@ namespace winrt::CppWinRTWinUI3ListView::implementation
     void MainPage::OnNavigatedTo(winrt::Microsoft::UI::Xaml::Navigation::NavigationEventArgs const& e)
     {
 
-       /* winrt::Microsoft::UI::Xaml::Window window = e.Parameter().as<Microsoft::UI::Xaml::Window>();
-        winrt::CppWinRTWinUI3ListView::MainWindow mainWindow = window.as<winrt::CppWinRTWinUI3ListView::MainWindow>();
-        AppWindow appWindow = mainWindow.MyAppWindow();
-        m_mainAppWindow = appWindow;*/
+        m_DefaultViewModel = winrt::make<CppWinRTWinUI3ListView::implementation::ContactViewModel>();
+        MainPageListView().ItemsSource(DefaultViewModel().ContactsList());
 
     }
 
