@@ -48,9 +48,22 @@
         <ListView x:Name="MainPageListView"
    CanDragItems="True" CanReorderItems="True" AllowDrop="True"
     SelectionMode="Single" 
-    ItemTemplate="{StaticResource ContactListViewTemplate}"/>
+                  IsItemClickEnabled="True"
+                  SelectionChanged="MainPageListView_SelectionChanged"
+    ItemTemplate="{StaticResource ContactListViewTemplate}" DragItemsCompleted="MainPageListView_DragItemsCompleted" DropCompleted="MainPageListView_DropCompleted"/>
 
-        
 
+        <StackPanel>
+            <TextBlock x:Name="DebugTitleTextBlock" Text="Debug Info" />
+
+            <TextBlock x:Name="SelectedIndexTextBlock" Text="1index" />
+            <TextBlock x:Name="NumberOfSelectedItems" Text="NumberOfSelectedItems" />
+
+            <TextBlock x:Name="SelectedFirstNameTextBlock" Text="FirstName" />
+            <TextBlock x:Name="SelectedLastNameTextBlock" Text="LastName" />
+
+        </StackPanel>
     </StackPanel>
+
+    
 </Page>

@@ -27,9 +27,14 @@ namespace winrt::CppWinRTWinUI3ListView::implementation
         };
         
     private:
+        void UpdateDebugXAMLUI();
 
         CppWinRTWinUI3ListView::ContactViewModel m_DefaultViewModel{ nullptr };
 
+    public:
+        void MainPageListView_DragItemsCompleted(winrt::Microsoft::UI::Xaml::Controls::ListViewBase const& sender, winrt::Microsoft::UI::Xaml::Controls::DragItemsCompletedEventArgs const& args);
+        void MainPageListView_DropCompleted(winrt::Microsoft::UI::Xaml::UIElement const& sender, winrt::Microsoft::UI::Xaml::DropCompletedEventArgs const& args);
+        void MainPageListView_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
     };
 }
 

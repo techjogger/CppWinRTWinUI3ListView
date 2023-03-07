@@ -31,5 +31,68 @@ namespace winrt::CppWinRTWinUI3ListView::implementation
 
     }
 
+    void MainPage::MainPageListView_DragItemsCompleted(winrt::Microsoft::UI::Xaml::Controls::ListViewBase const& sender, winrt::Microsoft::UI::Xaml::Controls::DragItemsCompletedEventArgs const& args)
+    {
+        UpdateDebugXAMLUI();
+
+           
+    }
+
+
+    void MainPage::MainPageListView_DropCompleted(winrt::Microsoft::UI::Xaml::UIElement const& sender, winrt::Microsoft::UI::Xaml::DropCompletedEventArgs const& args)
+    {
+        Microsoft::UI::Xaml::Controls::ListView target = sender.as<Microsoft::UI::Xaml::Controls::ListView>();
+
+    }
+
+    void MainPage::MainPageListView_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)
+    {
+        UpdateDebugXAMLUI();
+    }
+
+
+    void  MainPage::UpdateDebugXAMLUI()
+    {
+        int numofselecteditems = MainPageListView().SelectedItems().Size();
+        winrt::hstring itmesHString = winrt::to_hstring(numofselecteditems);
+        itmesHString = L"numofselecteditems" + itmesHString + L"\n";
+
+
+        winrt::Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> items = MainPageListView().SelectedItems();
+
+        int size = MainPageListView().SelectedItems().Size();
+        int index = MainPageListView().SelectedIndex();
+
+        winrt::hstring numOfSelected{ L" Number of Selected items: " + winrt::to_hstring(size) };
+        winrt::hstring selectedIndex{ L" Selected Index: " + winrt::to_hstring(index) };
+
+       
+        if(size > 0) {
+            CppWinRTWinUI3ListView::ContactModel model = MainPageListView().SelectedItems().GetAt(0).try_as<CppWinRTWinUI3ListView::ContactModel>();
+
+
+            NumberOfSelectedItems().Text(numOfSelected);
+            SelectedIndexTextBlock().Text(selectedIndex);
+            SelectedFirstNameTextBlock().Text(model.FirstName());
+            SelectedLastNameTextBlock().Text(model.LastName());
+
+        }
+        else {
+
+            NumberOfSelectedItems().Text(L"Null");
+            SelectedIndexTextBlock().Text(L"Null");
+            SelectedFirstNameTextBlock().Text(L"Null");
+            SelectedLastNameTextBlock().Text(L"Null");
+        }
+
+       
+        
+
+    }
    
 }
+
+
+
+
+
