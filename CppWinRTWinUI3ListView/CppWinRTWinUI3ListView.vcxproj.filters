@@ -12,6 +12,7 @@
     <Midl Include="MainWindow.idl" />
     <Midl Include="ContactModel.idl" />
     <Midl Include="ContactViewModel.idl" />
+    <Midl Include="SelectedItemConverter.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -33,11 +33,63 @@ namespace winrt::CppWinRTWinUI3ListView::implementation
 
     void MainPage::MainPageListView_DragItemsCompleted(winrt::Microsoft::UI::Xaml::Controls::ListViewBase const& sender, winrt::Microsoft::UI::Xaml::Controls::DragItemsCompletedEventArgs const& args)
     {
-        UpdateDebugXAMLUI();
+
+        if (MainPageListView().SelectedItem() != nullptr)
+        {
+            selectedItemFirstNameTextBlock().Text(L"Selected item First Name: " + MainPageListView().SelectedItem().as<CppWinRTWinUI3ListView::ContactModel>().FirstName());
+            selectedItemLastNameTextBlock().Text(L"Selected item Last Name: " + MainPageListView().SelectedItem().as<CppWinRTWinUI3ListView::ContactModel>().LastName());
+
+        }
+        else
+        {
+            selectedItemFirstNameTextBlock().Text(L"Selected item First Name: NULL");
+            selectedItemLastNameTextBlock().Text(L"Selected item Last Name: NULL");
+
+        }
+
+        int index = MainPageListView().SelectedIndex();
+        int size = MainPageListView().SelectedItems().Size();
+
+        winrt::hstring selectedIndextext{ L" Selected Index: " + winrt::to_hstring(index) };
+        winrt::hstring numOfSelected{ L" Items selected: " + winrt::to_hstring(size) };
+
+
+        selectedIndexTextBlock().Text(selectedIndextext);
+        selectedItemCountTextBlock().Text(numOfSelected);
+
+      
+
+        winrt::hstring Addedtext{ L"Added: NULL" };
+        winrt::hstring Removedtext{ L"Removed:  NULL"};
+
+
+        addedItemsTextBlock().Text(Addedtext);
+        removedItemsTextBlock().Text(Removedtext);
+
+
+       
 
            
     }
 
+
+    winrt::Windows::Foundation::IAsyncAction MainPage::MainPageListView_Drop(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DragEventArgs const& e)
+    {
+        if (e.DataView().Contains(winrt::Windows::ApplicationModel::DataTransfer::StandardDataFormats::Text()))
+        {
+            // We need to take the deferral as the source will read _deletedItem which
+            // we cannot set synchronously
+            auto def = e.GetDeferral();
+
+            winrt::hstring item = co_await e.DataView().GetTextAsync();
+
+
+            e.AcceptedOperation(winrt::Windows::ApplicationModel::DataTransfer::DataPackageOperation::Move);
+            def.Complete();
+
+           
+        }
+    }
 
     void MainPage::MainPageListView_DropCompleted(winrt::Microsoft::UI::Xaml::UIElement const& sender, winrt::Microsoft::UI::Xaml::DropCompletedEventArgs const& args)
     {
@@ -47,50 +99,73 @@ namespace winrt::CppWinRTWinUI3ListView::implementation
 
     void MainPage::MainPageListView_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)
     {
-        UpdateDebugXAMLUI();
+
+        if (MainPageListView().SelectedItem() != nullptr)
+        {
+            selectedItemFirstNameTextBlock().Text(L"Selected item First Name: " + MainPageListView().SelectedItem().as<CppWinRTWinUI3ListView::ContactModel>().FirstName());
+            selectedItemLastNameTextBlock().Text(L"Selected item Last Name: " + MainPageListView().SelectedItem().as<CppWinRTWinUI3ListView::ContactModel>().LastName());
+
+        }
+        else
+        {
+            selectedItemFirstNameTextBlock().Text(L"Selected item First Name: NULL");
+            selectedItemLastNameTextBlock().Text(L"Selected item Last Name: NULL" );
+            
+        }
+
+        int index = MainPageListView().SelectedIndex();
+        int size = MainPageListView().SelectedItems().Size();
+
+        winrt::hstring selectedIndextext{ L" Selected Index: " + winrt::to_hstring(index) };
+        winrt::hstring numOfSelected{ L" Items selected: " + winrt::to_hstring(size) };
+
+
+        selectedIndexTextBlock().Text(selectedIndextext);
+        selectedItemCountTextBlock().Text(numOfSelected);
+
+        int Added = e.AddedItems().Size();
+        int Removed = e.RemovedItems().Size();
+
+        winrt::hstring Addedtext{ L"Added: " + winrt::to_hstring(Added) };
+        winrt::hstring Removedtext{ L"Removed: " + winrt::to_hstring(Removed) };
+
+
+        addedItemsTextBlock().Text(Addedtext);
+        removedItemsTextBlock().Text(Removedtext);
+
+
+        
     }
 
 
-    void  MainPage::UpdateDebugXAMLUI()
+   
+
+    void MainPage::MainPageListView_DragItemsStarting(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::DragItemsStartingEventArgs const& e)
     {
-        int numofselecteditems = MainPageListView().SelectedItems().Size();
-        winrt::hstring itmesHString = winrt::to_hstring(numofselecteditems);
-        itmesHString = L"numofselecteditems" + itmesHString + L"\n";
+        if (e.Items().Size() == 1)
+        {
+            winrt::Windows::Foundation::IInspectable temp = e.Items().GetAt(0);
+            CppWinRTWinUI3ListView::ContactModel cm = temp.as<CppWinRTWinUI3ListView::ContactModel>();
+
+            winrt::hstring fName = cm.FirstName();
+           // winrt::hstring value = unbox_value<winrt::hstring>(cm.);
+            e.Data().SetText(fName);
 
 
-        winrt::Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> items = MainPageListView().SelectedItems();
-
-        int size = MainPageListView().SelectedItems().Size();
-        int index = MainPageListView().SelectedIndex();
-
-        winrt::hstring numOfSelected{ L" Number of Selected items: " + winrt::to_hstring(size) };
-        winrt::hstring selectedIndex{ L" Selected Index: " + winrt::to_hstring(index) };
-
-       
-        if(size > 0) {
-            CppWinRTWinUI3ListView::ContactModel model = MainPageListView().SelectedItems().GetAt(0).try_as<CppWinRTWinUI3ListView::ContactModel>();
-
-
-            NumberOfSelectedItems().Text(numOfSelected);
-            SelectedIndexTextBlock().Text(selectedIndex);
-            SelectedFirstNameTextBlock().Text(model.FirstName());
-            SelectedLastNameTextBlock().Text(model.LastName());
-
+           // e.Data().SetText(dynamic_cast<String^>());
+            //// Reorder or move to trash are always a move
+            //e->Data->RequestedOperation = DataPackageOperation::Move;
+            //_deletedItem = nullptr;
         }
-        else {
-
-            NumberOfSelectedItems().Text(L"Null");
-            SelectedIndexTextBlock().Text(L"Null");
-            SelectedFirstNameTextBlock().Text(L"Null");
-            SelectedLastNameTextBlock().Text(L"Null");
-        }
-
-       
-        
-
     }
    
 }
+
+
+
+
+
+
 
 
 

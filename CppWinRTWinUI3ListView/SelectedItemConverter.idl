@@ -1,0 +1,7 @@
+namespace CppWinRTWinUI3ListView
+{
+    runtimeclass SelectedItemConverter : [default] Windows.UI.Xaml.Data.IValueConverter
+    {
+        SelectedItemConverter();
+    }
+}
