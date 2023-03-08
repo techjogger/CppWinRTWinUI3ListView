@@ -51,7 +51,7 @@
                   IsItemClickEnabled="True"
                   SelectionChanged="MainPageListView_SelectionChanged"
                   DragItemsStarting="MainPageListView_DragItemsStarting"
-                  Drop="MainPageListView_Drop"
+                
     ItemTemplate="{StaticResource ContactListViewTemplate}" DragItemsCompleted="MainPageListView_DragItemsCompleted" DropCompleted="MainPageListView_DropCompleted"/>
 
 
